@@ -1,0 +1,13 @@
+== README
+
+This application will mimic something a temp agency could use, with a database of employees and their specified skills, and a database of current jobs, with a list of appropriate skills needed for the job. The
+app could then be used to place employees to temp jobs, but only if their skills matched those needed for the job.
+
+Some "skill" examples that could be used
+* Carpentry
+* Construction
+* Customer Service
+* Retail
+* Service Industry
+* Python
+* Networking
