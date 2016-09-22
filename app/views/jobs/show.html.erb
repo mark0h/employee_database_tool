@@ -1,34 +1,35 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Company:</strong>
-  <%= @job.company %>
-</p>
+<div class='panel panel-default'>
+  <div class='panel-heading'>
+    <h4 class='panel-title'><%= @job.company %></h4>
+  </div>
+  <div class='panel-body'>
+    <span align='center'><i><%= @job.position %></i></span>
+    <br>
+    <p>
+      <strong>Skill list:</strong>
+      <%= @skills_listed.join(', ') %>
+    </p>
 
-<p>
-  <strong>Position:</strong>
-  <%= @job.position %>
-</p>
+    <p>
+      <strong>Job type:</strong>
+      <%= @job.job_type %>
+    </p>
 
-<p>
-  <strong>Skill list:</strong>
-  <%= @job.skill_list %>
-</p>
+    <p>
+      <strong>Salary or hourly:</strong>
+      <%= @job.salary_or_hourly %>
+    </p>
 
-<p>
-  <strong>Job type:</strong>
-  <%= @job.job_type %>
-</p>
+    <p>
+      <strong>Pay rate:</strong>
+      <%= @job.pay_rate %>
+    </p>
+  </div>
+</div>
 
-<p>
-  <strong>Salary or hourly:</strong>
-  <%= @job.salary_or_hourly %>
-</p>
-
-<p>
-  <strong>Pay rate:</strong>
-  <%= @job.pay_rate %>
-</p>
-
-<%= link_to 'Edit', edit_job_path(@job) %> |
-<%= link_to 'Back', jobs_path %>
+<% if @job.employer_id == current_user.id %>
+  <%= link_to 'Edit', edit_job_path(@job) %> |
+  <%= link_to 'Back', jobs_path %>
+<% end %>

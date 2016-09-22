@@ -10,6 +10,11 @@ class JobsController < ApplicationController
   # GET /jobs/1
   # GET /jobs/1.json
   def show
+    @skills_listed = []
+    JobSkill.where(job_id: @job.id).each do |job_skill|
+      skill_list = Skill.find(job_skill.skill_id)
+      @skills_listed << "#{skill_list.name} level #{skill_list.level}"
+    end
   end
 
   # GET /jobs/new
@@ -25,9 +30,16 @@ class JobsController < ApplicationController
   # POST /jobs.json
   def create
     @job = Job.new(job_params)
-
+    @job.employer_id = current_user.id
     respond_to do |format|
       if @job.save
+        job_params[:skill_list].each do |skill_id|
+          unless skill_id == ''
+            JobSkill.create(job_id: @job.id, skill_id: skill_id)
+            skill_name = Skill.select("name").find(skill_id)
+            @skills_listed << skill_name
+          end
+        end
         format.html { redirect_to @job, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
@@ -69,6 +81,6 @@ class JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.require(:job).permit(:company, :position, :skill_list, :job_type, :salary_or_hourly, :pay_rate)
+      params.require(:job).permit(:company, :position, {:skill_list => []}, :job_type, :salary_or_hourly, :pay_rate)
     end
 end

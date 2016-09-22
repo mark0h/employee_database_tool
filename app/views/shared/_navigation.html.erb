@@ -9,9 +9,14 @@
     <div class='col-lg-4'>
       <div class="navbar-collapse collapse navbar-responsive-collapse">
         <ul class="nav navbar-nav">
-          <li><%= link_to("Profile", edit_user_registration_path) %></li>
-          <li><%= link_to "Link2", "/path2"  %></li>
-          <li><%= link_to "Link3", "/path3"  %></li>
+          <li><%= link_to("Profile", profile_path) %></li>
+          <% if current_user.group_id == 1 %>
+            <li><%= link_to("Assign Jobs", '/assign_jobs') %></li>
+          <% elsif current_user.group_id ==2 %>
+            <li><%= link_to("Add Job Listing", new_job_path) %></li>
+          <% else %>
+            <li><%= link_to("Check Job Listings", jobs_path) %></li>
+          <% end %>
         </ul>
       </div>
     </div>

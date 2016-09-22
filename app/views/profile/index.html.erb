@@ -1,0 +1,73 @@
+<div class='row'>
+  <div class='col-md-1'></div>
+
+  <% if current_user.group_id == 3 %>
+    <div class='col-md-3'>
+      <div class='panel panel-default'>
+        <div class='panel-heading'>
+          <h4 class='panel-title'>Skills</h4>
+        </div>
+        <div class='panel-body'>
+          <% get_employee_skills %>
+          <table class='table table-striped'>
+            <tr>
+              <th>Name</th>
+              <th>Level</th>
+            </tr>
+            <% @employee_skills.each do |skill| %>
+              <tr>
+                <td><%= skill.name %></td>
+                <td><%= skill.level %></td>
+              </tr>
+            <% end %>
+        </table>
+        </div>
+      </div>
+    </div>
+
+    <div class='col-md-6'>
+      <div class='panel panel-default'>
+        <div class='panel-heading'>
+          <h4 class='panel-title'>Jobs</h4>
+        </div>
+        <div class='panel-body'>
+          <% get_employee_jobs %>
+          <table class='table table-striped'>
+            <tr>
+              <th>Company</th>
+              <th>Position</th>
+              <th>Status</th>
+              <th>Salary</th>
+            </tr>
+            <% @employee_jobs.each do |job| %>
+              <tr>
+                <td><%= job.company %></td>
+                <td><%= job.position %></td>
+                <td><%= job.job_type %></td>
+                <td>
+                  <% if job.salary_or_hourly == 'salary' %>
+                    <%= job.pay_rate %>/ Month
+                  <% else %>
+                    $<%= job.pay_rate %>/ Hour
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+        </table>
+        </div>
+      </div>
+    </div>
+  <% elsif current_user.group_id == 2 %>
+  <% end %>
+
+
+
+
+</div>
+<br><br><br><br>
+<div class='row'>
+  <div class='col-md-1'></div>
+  <div class='col-md-2'>
+    <button type="button" class='btn btn-primary btn-xs' id='change_password'>Change Password</button>
+  </div>
+</div>

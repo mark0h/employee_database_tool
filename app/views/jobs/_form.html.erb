@@ -20,20 +20,20 @@
     <%= f.text_field :position %>
   </div>
   <div class="field">
-    <%= f.label :skill_list %><br>
-    <%= f.text_area :skill_list %>
+    <%= f.label :skill_list %>
+    <%= f.collection_select :skill_list, Skill.all, :id, :name_with_level, {:prompt => "Please Select Skills"}, {:multiple => true} %>
   </div>
   <div class="field">
     <%= f.label :job_type %><br>
-    <%= f.text_field :job_type %>
+    <%= f.select :job_type, [ ["Full time", "full_time"], ["Part time", "part_time"], ["Contract", "contract"], ["Holiday", "holiday"] ] %>
   </div>
   <div class="field">
     <%= f.label :salary_or_hourly %><br>
-    <%= f.text_field :salary_or_hourly %>
+    <%= f.select :salary_or_hourly, [ ["Salary", "salary"], ["Hourly", "hourly"] ], id: 'salary_or_hourly_select' %>
   </div>
   <div class="field">
     <%= f.label :pay_rate %><br>
-    <%= f.text_field :pay_rate %>
+    $  <%= f.number_field :pay_rate, :class => 'text_field', :step => 'any' %><span id='pay_amount_text'></span>
   </div>
   <div class="actions">
     <%= f.submit %>

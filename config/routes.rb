@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'profile/index'
+
   devise_for :users, :controllers => {:registrations => "user/registrations"}
   root 'welcome#index'
 
@@ -9,7 +11,7 @@ Rails.application.routes.draw do
   resources :jobs
   resources :welcome, except: [:destroy, :edit, :update, :show, :new, :create]
 
-  get '/user_setup', to: 'setup_user#index'
+  get '/profile', to: 'profile#index'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
