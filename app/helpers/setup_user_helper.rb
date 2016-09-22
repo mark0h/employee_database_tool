@@ -1,0 +1,2 @@
+module SetupUserHelper
+end

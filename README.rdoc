@@ -11,3 +11,8 @@ Some "skill" examples that could be used
 * Service Industry
 * Python
 * Networking
+
+
+
+Setting up for the first time:
+  The first user that signs up will be assigned in the Administrator group, be aware!

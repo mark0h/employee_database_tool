@@ -1,0 +1,40 @@
+<h3 align='center'>User Information</h3>
+<br>
+
+<br>
+<% if current_user.groups[0] %>
+  <% if current_user.groups[0].name == 'Administrator' %>
+    WELCOME ADMIN!!
+  <% elsif current_user.groups[0].name == 'Employer' %>
+    Welcome EMPLOYER
+  <% elsif current_user.groups[0].name == 'Employee' %>
+    Welcome EMPLOYEE
+  <% end %>
+  <br>
+  <%= current_user.groups[0].name %>
+<% else %>
+  <div class='row'>
+    <div class='col-lg-3'></div>
+
+    <div class='col-lg-6'>
+      <div class='panel panel-default'>
+        <div class='panel-heading'><h3 class='panel-title'>Which are you?</h3></div>
+        <div class='panel-body'>
+          <div class='radio'>
+            <label>
+              <input type='radio' name='group_select' id='user_employee_radio' value='Employee'>Employee
+            </label>
+          </div>
+          <div class='radio'>
+            <label>
+              <input type='radio' name='group_select' id='user_employer_radio' value='Employer'>Employer
+            </label>
+          </div>
+          <br>
+          <button class='btn btn-default' id='group_select_button'>Confirm</button>
+        </div>
+      </div>
+    </div> <!-- col-lg-6 -->
+
+    <div class='col-lg-3'></div>
+<% end %>
