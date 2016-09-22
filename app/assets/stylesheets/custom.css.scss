@@ -3,3 +3,11 @@ $navbar-default-bg: #B2D4ED;;
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+
+.logout_button {
+  padding: 5px;
+  border: 2px solid black;
+  background: rgb(255, 160, 160);
+  border-radius: 10px;
+}

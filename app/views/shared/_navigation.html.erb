@@ -9,7 +9,7 @@
     <div class='col-lg-4'>
       <div class="navbar-collapse collapse navbar-responsive-collapse">
         <ul class="nav navbar-nav">
-          <li><%= link_to "Link1", "/path1"  %></li>
+          <li><%= link_to("Profile", edit_user_registration_path) %></li>
           <li><%= link_to "Link2", "/path2"  %></li>
           <li><%= link_to "Link3", "/path3"  %></li>
         </ul>
@@ -19,13 +19,14 @@
     <div class='col-lg-3'></div>
 
     <div class='col-lg-3'>
-      <ul class='nav navbar-right col-md-11' style="padding:5px;">
-        <li class="col-md-8 user-name text-right">
-          <i class="fa fa-user"></i>
-          <small><%= current_user.email %></small>
-        </li>
-        <li class=""><%= link_to("logout", destroy_user_session_path, method: :delete) %></li>
-      </ul>
+      <br>
+      <div class='navbar-collapse collapse navbar-responsive-collapse'>
+        <ul class="nav navbar-nav">
+          <li><i class="fa fa-user"></i><small><%= current_user.email %></small></li>
+          <li style="padding: 5px;"> </li>
+        </ul>
+        <span style='border: 1px;'><%= link_to("Sign Out", destroy_user_session_path, method: :delete, class: 'logout_button') %></span>
+      </div>
     </div>
 
   <% end %>

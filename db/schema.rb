@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922081950) do
+ActiveRecord::Schema.define(version: 20160922192451) do
 
   create_table "groups", force: :cascade do |t|
     t.string   "name"
@@ -28,6 +28,35 @@ ActiveRecord::Schema.define(version: 20160922081950) do
     t.decimal  "pay_rate",         precision: 10, scale: 2
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
+    t.integer  "employer_id"
+  end
+
+  create_table "skills", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_groups", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_jobs", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "job_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_skills", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "skill_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
