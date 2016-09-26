@@ -36,18 +36,41 @@ $(document).on('change', '#salary_or_hourly_select', function() {
   }
 });
 
-// $("input[type=number]").keypress(function(event) {
-//     if (!event.charCode) return true;
-//     ch = String.fromCharCode(event.charCode);
-//     return (/[\d]/.test(ch));
-// });
+$(document).on('click', '#show_skill_list', function() {
+  $('#profile_skill_list').show();
+});
 
-// $("#salary_or_hourly_select").change(function(){
-//   var hourly_or_salary = $(this).val();
-//   if(hourly_or_salary == 'salary') {
-//     $('#pay_amount_text').html("per Month")
-//   } else {
-//     $('#pay_amount_text').html("per Hour")
-//   }
-//
-// });
+$(document).on('click', '#hide_skill_list', function() {
+  $('#profile_skill_list').hide();
+});
+
+$(document).on('click', '#add_skills_button', function() {
+  skill_ids = $('.add_skill_checkbox:checked').map(function() {
+    return $(this).attr('data-skill_id');
+  }).get();
+  console.log("Skill Ids selected: " + skill_ids);
+
+  $.ajax({
+    url: "/profile/add_skill",
+    type: 'GET',
+    data: {skill_list: skill_ids},
+    success:function(){
+      window.location.reload();
+    }
+  });
+
+});
+
+$(document).on('click', '#remove_this_skill', function() {
+  skill_id = $(this).val();
+  console.log("Removing skill: " + skill_id);
+
+  $.ajax({
+    url: '/profile/remove_skill',
+    type: 'GET',
+    data: {skill_id: skill_id},
+    success:function(){
+      window.location.reload();
+    }
+  });
+});

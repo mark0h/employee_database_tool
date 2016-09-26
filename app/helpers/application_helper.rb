@@ -12,4 +12,9 @@ module ApplicationHelper
     @employee_jobs = Job.where(id: job_ids)
   end
 
+  def get_all_skills
+    user_skills = UserSkill.select("skill_id").where(user_id: current_user.id)
+    @all_skills = Skill.where.not(id: user_skills)
+  end
+
 end

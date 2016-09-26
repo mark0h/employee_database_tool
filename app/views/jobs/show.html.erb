@@ -1,33 +1,56 @@
 <p id="notice"><%= notice %></p>
 
-<div class='panel panel-default'>
-  <div class='panel-heading'>
-    <h4 class='panel-title'><%= @job.company %></h4>
+<div class='row'>
+  <div class='col-md-4'>
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        <h4 class='panel-title'><%= @job.company %> - <small><i><%= @job.position %></i></small></h4>
+      </div>
+      <div class='panel-body'>
+        <br><br>
+        <p>
+          <strong>Skill list:</strong>
+          <%= @skills_listed.join(', ') %>
+        </p>
+
+        <p>
+          <strong>Job type:</strong>
+          <%= @job.job_type %>
+        </p>
+
+        <p>
+          <strong>Salary or hourly:</strong>
+          <%= @job.salary_or_hourly %>
+        </p>
+
+        <p>
+          <strong>Pay rate:</strong>
+          <%= @job.pay_rate %>
+        </p>
+      </div>
+    </div>
   </div>
-  <div class='panel-body'>
-    <span align='center'><i><%= @job.position %></i></span>
-    <br>
-    <p>
-      <strong>Skill list:</strong>
-      <%= @skills_listed.join(', ') %>
-    </p>
+  <div class='col-md-8'>
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        <h4 class='panel-title'>Potential Employees</h4>
+      </div>
+      <div class='panel-body'>
+        <% get_potential_hires(@job.id) %>
 
-    <p>
-      <strong>Job type:</strong>
-      <%= @job.job_type %>
-    </p>
-
-    <p>
-      <strong>Salary or hourly:</strong>
-      <%= @job.salary_or_hourly %>
-    </p>
-
-    <p>
-      <strong>Pay rate:</strong>
-      <%= @job.pay_rate %>
-    </p>
+        <table class="table table-striped">
+          <tr>
+            <th>Name</th>
+            <th>Skills</th>
+          </tr>
+          <% @potential_hires.each do |potential_hire| %>
+            <tr>
+              <td><% potential_hire %></td>
+            </tr>
+          <% end %>
   </div>
-</div>
+
+
 
 <% if @job.employer_id == current_user.id %>
   <%= link_to 'Edit', edit_job_path(@job) %> |

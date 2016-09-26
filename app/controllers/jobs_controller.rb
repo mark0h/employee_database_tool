@@ -4,7 +4,26 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.all
+    @employer_jobs = Hash.new
+    @employee_jobs = Hash.new
+    @user_group_id = User.find(current_user.id).group_id
+    @employer_jobs = Job.where(employer_id: current_user.id)
+
+    #Get job listing for prospective employees
+    user_skills = UserSkill.select("skill_id").where(user_id: current_user.id)
+    job_list = JobSkill.where(skill_id: user_skills)
+    Job.where(id: job_list).each do |job|
+      @employee_jobs[:company] = job.company
+      @employee_jobs[:position] = job.position
+      @employee_jobs[:job_type] = job.job_type
+      @employee_jobs[:salary_or_hourly] = job.salary_or_hourly
+      @employee_jobs[:pay_rate] = job.pay_rate
+      skill_names  = []
+      job.skill_list.each do |skill_id|
+        skill_names << Skill.find(skill_id) unless skill_id = ''
+      end
+      @employee_jobs[:skill_list] = skill_list.join(', ')
+    end
   end
 
   # GET /jobs/1
@@ -13,7 +32,7 @@ class JobsController < ApplicationController
     @skills_listed = []
     JobSkill.where(job_id: @job.id).each do |job_skill|
       skill_list = Skill.find(job_skill.skill_id)
-      @skills_listed << "#{skill_list.name} level #{skill_list.level}"
+      @skills_listed << "#{skill_list.name}"
     end
   end
 
@@ -29,6 +48,7 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
+    @skills_listed = []
     @job = Job.new(job_params)
     @job.employer_id = current_user.id
     respond_to do |format|

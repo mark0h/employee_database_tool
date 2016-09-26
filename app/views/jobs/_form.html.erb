@@ -21,11 +21,11 @@
   </div>
   <div class="field">
     <%= f.label :skill_list %>
-    <%= f.collection_select :skill_list, Skill.all, :id, :name_with_level, {:prompt => "Please Select Skills"}, {:multiple => true} %>
+    <%= f.collection_select :skill_list, Skill.all, :id, :name, {:prompt => "Please Select Skills"}, {:multiple => true} %>
   </div>
   <div class="field">
     <%= f.label :job_type %><br>
-    <%= f.select :job_type, [ ["Full time", "full_time"], ["Part time", "part_time"], ["Contract", "contract"], ["Holiday", "holiday"] ] %>
+    <%= f.select :job_type, [ ["Full time", "Full time"], ["Part time", "Part time"], ["Contract", "Contract"], ["Holiday", "Holiday"] ] %>
   </div>
   <div class="field">
     <%= f.label :salary_or_hourly %><br>

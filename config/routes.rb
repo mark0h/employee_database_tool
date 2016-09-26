@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :welcome, except: [:destroy, :edit, :update, :show, :new, :create]
 
   get '/profile', to: 'profile#index'
+  get '/profile/add_skill', to: 'profile#add_skill'
+  get '/profile/remove_skill', to: 'profile#remove_skill'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

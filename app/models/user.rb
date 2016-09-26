@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # before_save :assign_group
+  before_save :assign_group
 
   def full_name
     return "#{first_name} #{last_name}".strip if (first_name || last_name)
@@ -26,11 +26,11 @@ class User < ActiveRecord::Base
 
   private
   #This will assign the FIRST USER TO SIGN UP as Administrator!!!
-  # def assign_group
-  #   if self.id == 1
-  #     self.group_id = 1
-  #   end
-  # end
+  def assign_group
+    if self.id == 1
+      self.group_id = 1
+    end
+  end
 
 
 end

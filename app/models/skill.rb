@@ -5,10 +5,7 @@ class Skill < ActiveRecord::Base
   has_many :jobs, through: :job_skills
 
 
-  validates :name, presence: true
-  validates :level, :uniqueness => {:scope => :name}
+  validates :name, presence: true, uniqueness: {case_sensitive: false}
 
-  def name_with_level
-    "#{name} level #{level}"
-  end
+
 end

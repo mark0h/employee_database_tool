@@ -12,15 +12,17 @@
           <table class='table table-striped'>
             <tr>
               <th>Name</th>
-              <th>Level</th>
+              <th></th>
             </tr>
             <% @employee_skills.each do |skill| %>
               <tr>
                 <td><%= skill.name %></td>
-                <td><%= skill.level %></td>
+                <td><button class='btn btn-danger btn-xs' id= 'remove_this_skill' value="<%= skill.id %>">Remove</button><td>
               </tr>
             <% end %>
         </table>
+        <br>
+        <button class='btn btn-primary btn-xs' id='show_skill_list'>Add Skill</button>
         </div>
       </div>
     </div>
@@ -64,6 +66,38 @@
 
 
 </div>
+
+<br><br>
+<div class='row' id='profile_skill_list'>
+  <div class='col-md-1'></div>
+  <div class='col-md-3'>
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        <h4 class='panel-title'>List of Skills</h4>
+      </div>
+      <div class='panel-body'>
+        <small><i>These represent what current employers are seeking</i></small>
+        <% get_all_skills %>
+        <table class='table table-striped'>
+          <tr>
+            <th></th>
+            <th>Name</th>
+          </tr>
+          <% @all_skills.each do |skill| %>
+            <tr>
+              <td><input type='checkbox' name="add_skill_checked" class='add_skill_checkbox' data-skill_id="<%= skill.id %>"></td>
+              <td><%= skill.name %></td>
+            </tr>
+          <% end %>
+      </table>
+      <br>
+      <button class='btn btn-primary btn-xs' id='add_skills_button'>Add Skill</button>
+      <button class='btn btn-danger btn-xs' id='hide_skill_list'>Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <br><br><br><br>
 <div class='row'>
   <div class='col-md-1'></div>

@@ -7,6 +7,7 @@ class CreateJobs < ActiveRecord::Migration
       t.string :job_type
       t.string :salary_or_hourly
       t.decimal :pay_rate, :precision => 10, :scale => 2
+      t.integer :employer_id
 
       t.timestamps null: false
     end
