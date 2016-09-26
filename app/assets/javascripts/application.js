@@ -36,14 +36,9 @@ $(document).on('change', '#salary_or_hourly_select', function() {
   }
 });
 
-$(document).on('click', '#show_skill_list', function() {
-  $('#profile_skill_list').show();
-});
-
-$(document).on('click', '#hide_skill_list', function() {
-  $('#profile_skill_list').hide();
-});
-
+//  -----------------------------------------
+//   EMPLOYEE PROFILE FUNCTIONS
+//  -----------------------------------------
 $(document).on('click', '#add_skills_button', function() {
   skill_ids = $('.add_skill_checkbox:checked').map(function() {
     return $(this).attr('data-skill_id');
@@ -73,4 +68,27 @@ $(document).on('click', '#remove_this_skill', function() {
       window.location.reload();
     }
   });
+});
+
+//  -----------------------------------------
+//      FUNCTIONS TO SHOW/HIDE ELEMENTS
+//  -----------------------------------------
+$(document).on('click', '#employee_apply_to_job', function() {
+  submission_text = $('.application_text').val();
+  console.log(submission_text);
+})
+
+//  -----------------------------------------
+//      FUNCTIONS TO SHOW/HIDE ELEMENTS
+//  -----------------------------------------
+$(document).on('click', '#show_skill_list', function() {
+  $('#profile_skill_list').show();
+});
+
+$(document).on('click', '#hide_skill_list', function() {
+  $('#profile_skill_list').hide();
+});
+
+$(document).on('click', '#show_apply_box', function() {
+  $('#apply_textbox').show();
 });

@@ -3,7 +3,6 @@ class ProfileController < ApplicationController
   end
 
   def add_skill
-    logger.info "params[:skill_list]: #{params[:skill_list]} params[:skill_list].class: #{params[:skill_list].class}"
     params[:skill_list].each do |skill_id|
       UserSkill.where(user_id: current_user.id, skill_id: skill_id).first_or_create unless skill_id == ""
     end
@@ -15,7 +14,6 @@ class ProfileController < ApplicationController
   end
 
   def remove_skill
-    logger.info "params[:skill_id]: #{params[:skill_id]}"
     skill_remove = UserSkill.where(user_id: current_user.id, skill_id: params[:skill_id])
     skill_remove.destroy_all
 

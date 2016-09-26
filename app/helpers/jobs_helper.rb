@@ -13,20 +13,25 @@ module JobsHelper
 
   def get_potential_hire_count(job_id)
     skill_ids = JobSkill.where(job_id: job_id)
-    user_list = UserSkill.where(skill_id: skill_ids)
+    user_list = UserSkill.where(skill_id: skill_ids).index_by &:user_id
     @potential_hire_count = user_list.length
   end
 
   def get_potential_hires(job_id)
     skill_ids = JobSkill.select("skill_id").where(job_id: job_id)
-    logger.info "get_potential_hires: skill_ids: #{skill_ids.inspect}"
-    @potential_hires = [1]
+    @potential_hires = Hash.new
     user_list = UserSkill.where(skill_id: skill_ids).group_by &:user_id
-    logger.info "USER LIST: #{user_list.inspect}"
 
-    user_list.each do |user_id, skills|
+    user_list.each do |user_id, user_info|
+      user_skills = []
+      user_name = User.find(user_id).full_name
+      user_info.each do |userskill|
+        skill_name = Skill.find(userskill.skill_id).name
+        user_skills << skill_name
+      end
+      @potential_hires[user_name] = user_skills.join(', ')
 
-      logger.info "user_list each: user_id: #{user_id} skills: #{skills.inspect}"
+      logger.info "user_list each: user_id: #{user_id} user_info: #{user_info.inspect}"
     end
   end
 

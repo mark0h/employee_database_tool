@@ -1,7 +1,6 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Listing Jobs</h1>
-group_id: <%= @user_group_id %>
 
 <% if current_user.group_id == 1 %>  <!-- ADMIN -->
 
@@ -31,10 +30,39 @@ group_id: <%= @user_group_id %>
 
       </tr>
     <% end %>
+  </table>
+  <%= link_to 'New Job', new_job_path %>
 
 <% else %>  <!-- EMPLOYEE -->
 
+<table class="table table-striped">
+  <tr>
+    <th>Company</th>
+    <th>Position</th>
+    <th>Skill list</th>
+    <th>Job type</th>
+    <th>Pay rate</th>
+    <th><th>
+  </tr>
+  <% @employee_jobs.each do |job| %>
+    <tr>
+      <td><%= job.company %></td>
+      <td><%= job.position %></td>
+      <% get_skill_list(job.skill_list) %>
+      <td><%= @skill_names_list %></td>
+      <td><%= job.job_type %></td>
+      <td>
+        <% if job.salary_or_hourly == 'salary' %>
+         $<%= job.pay_rate %>/Month
+        <% else %>
+          $<%= job.pay_rate %>/Hour
+        <% end %>
+      </td>
+      <td><%= link_to 'View', job %></td>
+
+    </tr>
+  <% end %>
+</table>
+
 <% end %>
 <br>
-
-<%= link_to 'New Job', new_job_path %>

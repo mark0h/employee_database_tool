@@ -1,13 +1,20 @@
 <p id="notice"><%= notice %></p>
 
 <div class='row'>
+  <% if current_user.group_id == 3 %>  <!-- EMPLOYEE -->
+    <div class='col-md-4'></div>
+  <% end %>
   <div class='col-md-4'>
     <div class='panel panel-default'>
       <div class='panel-heading'>
-        <h4 class='panel-title'><%= @job.company %> - <small><i><%= @job.position %></i></small></h4>
+        <h4 class='panel-title'><%= @job.company %></h4>
       </div>
       <div class='panel-body'>
-        <br><br>
+        <p>
+          <strong>Job Title:</strong>
+          <%= @job.position %>
+        </p>
+
         <p>
           <strong>Skill list:</strong>
           <%= @skills_listed.join(', ') %>
@@ -19,40 +26,77 @@
         </p>
 
         <p>
-          <strong>Salary or hourly:</strong>
-          <%= @job.salary_or_hourly %>
-        </p>
-
-        <p>
           <strong>Pay rate:</strong>
-          <%= @job.pay_rate %>
+          <% if @job.salary_or_hourly == 'salary' %>
+           $<%= @job.pay_rate %>/Month
+          <% else %>
+            $<%= @job.pay_rate %>/Hour
+          <% end %>
+
         </p>
+        <br>
+        <% if current_user.group_id == 3 %>  <!-- EMPLOYEE -->
+          <td><button class='btn btn-primary btn-xs' id= 'show_apply_box'>Apply</button><td>
+        <% end %>
       </div>
     </div>
   </div>
-  <div class='col-md-8'>
-    <div class='panel panel-default'>
-      <div class='panel-heading'>
-        <h4 class='panel-title'>Potential Employees</h4>
-      </div>
-      <div class='panel-body'>
-        <% get_potential_hires(@job.id) %>
 
-        <table class="table table-striped">
-          <tr>
-            <th>Name</th>
-            <th>Skills</th>
-          </tr>
-          <% @potential_hires.each do |potential_hire| %>
+  <% if current_user.group_id == 2 %>  <!-- EMPLOYER -->
+
+    <div class='col-md-8'>
+      <div class='panel panel-default'>
+        <div class='panel-heading'>
+          <h4 class='panel-title'>Potential Employees</h4>
+        </div>
+        <div class='panel-body'>
+          <% get_potential_hires(@job.id) %>
+
+          <table class="table table-striped">
             <tr>
-              <td><% potential_hire %></td>
+              <th>Name</th>
+              <th>Skills</th>
+              <th></th>
             </tr>
-          <% end %>
-  </div>
+            <% @potential_hires.each do |user_name, skills| %>
+              <tr>
+                <td><%= user_name %></td>
+                <td><%= skills %></td>
+                <td><button class='btn btn-primary btn-xs' id= 'request_employee' value="<%= user_name %>">Request</button><td>
+              </tr>
+            <% end %>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  <% end %>
+
+</div>
 
 
 
 <% if @job.employer_id == current_user.id %>
   <%= link_to 'Edit', edit_job_path(@job) %> |
   <%= link_to 'Back', jobs_path %>
+<% end %>
+
+<% if current_user.group_id == 3 %>  <!-- EMPLOYEE -->
+
+  <div class='row' id='apply_textbox'>
+    <div class='col-md-2'></div>
+    <div class='col-md-8'>
+      <div class='panel panel-default'>
+        <div class='panel-heading'>
+          <h4 class='panel-title'>Why are you a good fit?</h4>
+        </div>
+        <div class='panel-body'>
+          <textarea style="resize: none;" id="<% @job.id %>_<% current_user.id %>" class="application_text" cols="140" rows="8"></textarea>
+          <br><br>
+          <button class='btn btn-primary btn-xs' id= 'employee_apply_to_job'  value="<%= @job.id %>">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <% end %>

@@ -12,18 +12,7 @@ class JobsController < ApplicationController
     #Get job listing for prospective employees
     user_skills = UserSkill.select("skill_id").where(user_id: current_user.id)
     job_list = JobSkill.where(skill_id: user_skills)
-    Job.where(id: job_list).each do |job|
-      @employee_jobs[:company] = job.company
-      @employee_jobs[:position] = job.position
-      @employee_jobs[:job_type] = job.job_type
-      @employee_jobs[:salary_or_hourly] = job.salary_or_hourly
-      @employee_jobs[:pay_rate] = job.pay_rate
-      skill_names  = []
-      job.skill_list.each do |skill_id|
-        skill_names << Skill.find(skill_id) unless skill_id = ''
-      end
-      @employee_jobs[:skill_list] = skill_list.join(', ')
-    end
+    @employee_jobs = Job.where(id: job_list)
   end
 
   # GET /jobs/1
