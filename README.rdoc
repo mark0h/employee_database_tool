@@ -16,3 +16,14 @@ Some "skill" examples that could be used
 
 Setting up for the first time:
   The first user that signs up will be assigned in the Administrator group, be aware!
+
+
+== Sample App
+There is a sample of this app running here:
+
+There are 5 pre-made users to sign on as to test out the App functions. All have the same password of 'password' :
+* admin@mail.com
+* employer1@mail.com
+* employer2@mail.com
+* employee1@mail.com
+* employee2@mail.com
