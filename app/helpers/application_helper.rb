@@ -8,8 +8,25 @@ module ApplicationHelper
   end
 
   def get_employee_jobs
-    job_ids = UserJob.select("job_id").where(user_id: current_user.id)
-    @employee_jobs = Job.where(id: job_ids)
+    @employee_jobs = []
+    AppliedJob.where(user_id: current_user.id).each do |job_status|
+      job_info = Job.find(job_status.job_id)
+      salary_per = "/ Hour"
+      salary_per = "/ Month" if job_info.salary_or_hourly == 'salary'
+      job_salary = "#{job_info.pay_rate}#{salary_per}"
+
+      hash = {
+        company: job_info.company,
+        position: job_info.position,
+        job_type: job_info.job_type,
+        salary: job_salary,
+        status: job_status.status
+      }
+
+      @employee_jobs << hash
+    end
+
+
   end
 
   def get_all_skills

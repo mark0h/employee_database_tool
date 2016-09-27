@@ -38,21 +38,17 @@
             <tr>
               <th>Company</th>
               <th>Position</th>
-              <th>Status</th>
+              <th>Job Type</th>
               <th>Salary</th>
+              <th>Status</th>
             </tr>
             <% @employee_jobs.each do |job| %>
               <tr>
-                <td><%= job.company %></td>
-                <td><%= job.position %></td>
-                <td><%= job.job_type %></td>
-                <td>
-                  <% if job.salary_or_hourly == 'salary' %>
-                    <%= job.pay_rate %>/ Month
-                  <% else %>
-                    $<%= job.pay_rate %>/ Hour
-                  <% end %>
-                </td>
+                <td><%= job[:company] %></td>
+                <td><%= job[:position] %></td>
+                <td><%= job[:job_type] %></td>
+                <td>$<%= job[:salary] %></td>
+                <td><%= job[:status] %></td>
               </tr>
             <% end %>
         </table>
