@@ -18,7 +18,7 @@ Setting up for the first time:
   The first user that signs up will be assigned in the Administrator group, be aware!
 
 
-### Different Roles and what they can do
+=== Different Roles and what they can do
 
 **Administrator**
 * In charge of assigning employees to jobs they have applied to
@@ -33,7 +33,7 @@ Setting up for the first time:
 
 
 
-### Sample App
+=== Sample App
 There is a sample of this app running here:
 
 There are 5 pre-made users to sign on as to test out the App functions. All have the same password of 'password' :
