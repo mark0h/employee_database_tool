@@ -36,8 +36,9 @@
         </p>
         <br>
         <% if current_user.group_id == 3 %>  <!-- EMPLOYEE -->
-          <% if @date_applied %>
-            <b>Already applied on: </b><%= @date_applied.created_at %>
+          <% if @employee_applied %>
+            <b>Applied on: </b><%= @employee_applied.created_at %><br><br>
+            <b>Status: </b><%= @employee_applied.status %>
           <% else %>
             <td><button class='btn btn-primary btn-xs' id= 'show_apply_box'>Apply</button><td>
           <% end %>
@@ -63,11 +64,11 @@
               <th>Skills</th>
               <th></th>
             </tr>
-            <% @potential_hires.each do |user_name, skills| %>
+            <% @potential_hires.each do |info| %>
               <tr>
-                <td><%= user_name %></td>
-                <td><%= skills %></td>
-                <td><button class='btn btn-primary btn-xs' id= 'request_employee' value="<%= user_name %>">Request</button><td>
+                <td><%= info[:employee_name] %></td>
+                <td><%= info[:skills] %></td>
+                <td><button class='btn btn-primary btn-xs' id= 'request_employee' value="<%= info[:job_id_user_id] %>">Request</button><td>
               </tr>
             <% end %>
           </table>
@@ -96,8 +97,8 @@
           <h4 class='panel-title'>Why are you a good fit?</h4>
         </div>
         <div class='panel-body'>
-          <textarea style="resize: none;" data-job_id="<% @job.id %>" class="application_text" cols="140" rows="8"></textarea>
-          <br><br>
+          <textarea style="resize: none;padding:2px;" data-job_id="<% @job.id %>" id="application_text" class="col-xs-12" rows="8"></textarea>
+          <br><br><br>
           <button class='btn btn-primary btn-xs' id= 'employee_apply_to_job'  value="<%= @job.id %>">Submit</button>
         </div>
       </div>

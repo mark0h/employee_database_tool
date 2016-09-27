@@ -15,7 +15,7 @@ class JobsController < ApplicationController
 
     #Get job listing for prospective employees
     user_skills = UserSkill.select("skill_id").where(user_id: current_user.id)
-    job_list = JobSkill.where(skill_id: user_skills)
+    job_list = JobSkill.select("job_id").where(skill_id: user_skills)
     @employee_jobs = Job.where(id: job_list)
   end
 
@@ -28,7 +28,7 @@ class JobsController < ApplicationController
       @skills_listed << "#{skill_list.name}"
     end
 
-     @date_applied = AppliedJob.select("created_at").where(user_id: current_user.id, job_id: @job.id).first
+     @employee_applied = AppliedJob.where(user_id: current_user.id, job_id: @job.id).first
   end
 
   # GET /jobs/new

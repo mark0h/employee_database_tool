@@ -14,7 +14,11 @@ Rails.application.routes.draw do
   get '/profile', to: 'profile#index'
   get '/profile/add_skill', to: 'profile#add_skill'
   get '/profile/remove_skill', to: 'profile#remove_skill'
+
+
   get '/job/employee_apply_to_job', to: 'jobs#employee_apply_to_job'
+  get '/assign_jobs', to: 'jobs#assign_jobs'
+  get '/job/assign_employee', to: 'jobs#assign_employee'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

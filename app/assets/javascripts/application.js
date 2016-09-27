@@ -71,10 +71,10 @@ $(document).on('click', '#remove_this_skill', function() {
 });
 
 //  -----------------------------------------
-//      FUNCTIONS TO SHOW/HIDE ELEMENTS
+//      WHEN EMPLOYEE APPLIES TO A JOB
 //  -----------------------------------------
 $(document).on('click', '#employee_apply_to_job', function() {
-  submission_text = $('.application_text').val();
+  submission_text = $('#application_text').val();
   job_id = $(this).val();
 
   $.ajax({
@@ -85,7 +85,24 @@ $(document).on('click', '#employee_apply_to_job', function() {
       window.location.reload();
     }
   });
-})
+});
+
+//  -----------------------------------------
+//      WHEN ADMIN ASSIGNS A JOB
+//  -----------------------------------------
+$(document).on('click', '#assign_this_employee', function() {
+  var job_id_user_id = $(this).val();
+  console.log("job_id_user_id: " + job_id_user_id);
+
+  $.ajax({
+    url: '/job/assign_employee',
+    type: 'GET',
+    data: {job_id_user_id: job_id_user_id},
+    success:function() {
+      window.location.reload();
+    }
+  });
+});
 
 //  -----------------------------------------
 //      FUNCTIONS TO SHOW/HIDE ELEMENTS

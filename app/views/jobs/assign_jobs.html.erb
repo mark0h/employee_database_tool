@@ -1,0 +1,100 @@
+<% if current_user.group_id == 1 %>  <!-- ADMIN -->
+
+  <h4 align='center'>Assign Jobs</h4>
+
+  <div class='row'>
+    <div class='col-md-1'></div>
+    <div class='col-md-10'>
+      <div class='panel panel-default'>
+        <div class='panel-heading'>
+          <h4 class='panel-title'>Ready to Assign</h4>
+        </div>
+        <div class='panel-body'>
+
+          <table class="table table-striped">
+            <tr>
+              <th>Company</th>
+              <th>Position</th>
+              <th>Applying Employee</th>
+              <th>Matched Skills</th>
+              <th>Pay rate</th>
+              <th>Submission Text<th>
+              <th><th>
+            </tr>
+            <% @ready_to_assign_jobs.each do |job_info| %>
+              <tr>
+                <td><%= job_info[:company] %></td>
+                <td><%= job_info[:position] %></td>
+                <td><%= job_info[:employee_name] %></td>
+                <% get_skill_list(job_info[:matched_skills]) %>
+                <td><%= @skill_names_list %></td>
+                <td>
+                  <% if job_info[:salary_or_hourly] == 'salary' %>
+                   $<%= job_info[:pay_rate] %>/Month
+                  <% else %>
+                    $<%= job_info[:pay_rate] %>/Hour
+                  <% end %>
+                </td>
+                <td><button class='btn btn-primary btn-xs' id= 'view_submission_text' value="<%= job_info[:job_id_user_id] %>">View</button><td>
+                <td><button class='btn btn-danger btn-xs' id= 'assign_this_employee' value="<%= job_info[:job_id_user_id] %>">Assign</button><td>
+
+              </tr>
+            <% end %>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='col-md-1'></div>
+    <div class='col-md-10'>
+      <div class='panel panel-default'>
+        <div class='panel-heading'>
+          <h4 class='panel-title'>Assigned</h4>
+        </div>
+        <div class='panel-body'>
+
+          <table class="table table-striped">
+            <tr>
+              <th>Company</th>
+              <th>Position</th>
+              <th>Assigned Employee</th>
+              <th>Matched Skills</th>
+              <th>Pay rate</th>
+              <th>Employment Status</th>
+            </tr>
+            <% @assigned_jobs.each do |job_info| %>
+              <tr>
+                <td><%= job_info[:company] %></td>
+                <td><%= job_info[:position] %></td>
+                <td><%= job_info[:employee_name] %></td>
+                <% get_skill_list(job_info[:matched_skills]) %>
+                <td><%= @skill_names_list %></td>
+                <td>
+                  <% if job_info[:salary_or_hourly] == 'salary' %>
+                   $<%= job_info[:pay_rate] %>/Month
+                  <% else %>
+                    $<%= job_info[:pay_rate] %>/Hour
+                  <% end %>
+                </td>
+                <td><%= job_info[:status] %></td>
+
+              </tr>
+            <% end %>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<% else %> <!-- Everyone else -->
+  <div class="alert alert-danger" role="alert">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">Error:</span>
+    You are not authorized for this page.
+  </div>
+<% end %>
