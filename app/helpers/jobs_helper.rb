@@ -33,6 +33,6 @@ module JobsHelper
 
       logger.info "user_list each: user_id: #{user_id} user_info: #{user_info.inspect}"
     end
-  end
+  end  
 
 end

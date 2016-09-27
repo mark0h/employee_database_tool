@@ -1,4 +1,8 @@
 class JobsController < ApplicationController
+
+  include JobMethods
+
+
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
   # GET /jobs
@@ -23,6 +27,8 @@ class JobsController < ApplicationController
       skill_list = Skill.find(job_skill.skill_id)
       @skills_listed << "#{skill_list.name}"
     end
+
+     @date_applied = AppliedJob.select("created_at").where(user_id: current_user.id, job_id: @job.id).first
   end
 
   # GET /jobs/new

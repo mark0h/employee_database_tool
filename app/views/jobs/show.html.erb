@@ -36,7 +36,12 @@
         </p>
         <br>
         <% if current_user.group_id == 3 %>  <!-- EMPLOYEE -->
-          <td><button class='btn btn-primary btn-xs' id= 'show_apply_box'>Apply</button><td>
+          <% if @date_applied %>
+            <b>Already applied on: </b><%= @date_applied.created_at %>
+          <% else %>
+            <td><button class='btn btn-primary btn-xs' id= 'show_apply_box'>Apply</button><td>
+          <% end %>
+
         <% end %>
       </div>
     </div>
@@ -91,7 +96,7 @@
           <h4 class='panel-title'>Why are you a good fit?</h4>
         </div>
         <div class='panel-body'>
-          <textarea style="resize: none;" id="<% @job.id %>_<% current_user.id %>" class="application_text" cols="140" rows="8"></textarea>
+          <textarea style="resize: none;" data-job_id="<% @job.id %>" class="application_text" cols="140" rows="8"></textarea>
           <br><br>
           <button class='btn btn-primary btn-xs' id= 'employee_apply_to_job'  value="<%= @job.id %>">Submit</button>
         </div>

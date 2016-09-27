@@ -75,7 +75,16 @@ $(document).on('click', '#remove_this_skill', function() {
 //  -----------------------------------------
 $(document).on('click', '#employee_apply_to_job', function() {
   submission_text = $('.application_text').val();
-  console.log(submission_text);
+  job_id = $(this).val();
+
+  $.ajax({
+    url: '/job/employee_apply_to_job',
+    type: 'GET',
+    data: {job_id: job_id, submission_text: submission_text},
+    success:function(){
+      window.location.reload();
+    }
+  });
 })
 
 //  -----------------------------------------
