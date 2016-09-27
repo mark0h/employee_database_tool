@@ -20,21 +20,21 @@ Setting up for the first time:
 
 === Different Roles and what they can do
 
-**Administrator**
+*Administrator*
 * In charge of assigning employees to jobs they have applied to
 
-**Employer**
+*Employer*
 * Can create new job listings, and include which skills are required for that job
 * Can see a list of potential employees for each job
 
-**Employee**
+*Employee*
 * Can add personal skills in their profile section
 * Can apply to jobs that they have matching skills for
 
 
 
 === Sample App
-There is a sample of this app running here:
+There is a sample of this app running here: https://marko-g-employee-tool.herokuapp.com
 
 There are 5 pre-made users to sign on as to test out the App functions. All have the same password of 'password' :
 * admin@mail.com
