@@ -88,11 +88,6 @@
 
 
 
-<% if @job.employer_id == current_user.id %>
-  <%= link_to 'Edit', edit_job_path(@job) %> |
-  <%= link_to 'Back', jobs_path %>
-<% end %>
-
 <% if current_user.group_id == 3 %>  <!-- EMPLOYEE -->
 
   <div class='row' id='apply_textbox'>

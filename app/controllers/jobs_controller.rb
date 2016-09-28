@@ -8,10 +8,38 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    @employer_jobs = Hash.new
+    @filled_employer_jobs = []
+    @open_employer_jobs = []
     @employee_jobs = Hash.new
     @user_group_id = User.find(current_user.id).group_id
-    @employer_jobs = Job.where(employer_id: current_user.id)
+
+    Job.where(employer_id: current_user.id).each do |employer_job|
+      applied_job = AppliedJob.where(job_id: employer_job.id, status: "Applied").first
+      employed_job = AppliedJob.where(job_id: employer_job.id, status: ["Employed", "Complete"]).first
+      status, employee = ""
+      status = employed_job.status unless employed_job.blank?
+      employee = User.find(employed_job.user_id).full_name unless employed_job.blank?
+
+      hash = {
+        id: employer_job.id,
+        company: employer_job.company,
+        position: employer_job.position,
+        skill_list: employer_job.skill_list,
+        job_type: employer_job.job_type,
+        salary_or_hourly: employer_job.salary_or_hourly,
+        pay_rate: employer_job.pay_rate,
+        status: status,
+        employee: employee
+      }
+
+      if employed_job
+        @filled_employer_jobs << hash
+      else
+        @open_employer_jobs << hash
+      end
+
+    end
+
 
     #Get job listing for prospective employees
     user_skills = UserSkill.select("skill_id").where(user_id: current_user.id)

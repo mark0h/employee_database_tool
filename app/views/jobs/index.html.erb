@@ -5,36 +5,95 @@
 <% if current_user.group_id == 1 %>  <!-- ADMIN -->
 
 <% elsif current_user.group_id ==2 %> <!-- EMPLOYER -->
-  <table class="table table-striped">
-    <tr>
-      <th>Company</th>
-      <th>Position</th>
-      <th>Skill list</th>
-      <th>Job type</th>
-      <th>Pay rate</th>
-      <th>Potential Hires<th>
-    </tr>
-    <% @employer_jobs.each do |job| %>
-      <tr>
-        <td><%= job.company %></td>
-        <td><%= job.position %></td>
-        <% get_skill_list(job.skill_list) %>
-        <td><%= @skill_names_list %></td>
-        <td><%= job.job_type %></td>
-        <td>
-          <% if job.salary_or_hourly == 'salary' %>
-           $<%= job.pay_rate %>/Month
-          <% else %>
-            $<%= job.pay_rate %>/Hour
-          <% end %>
-        </td>
-        <% get_potential_hires(job.id) %>
-        <td><%= @potential_hire_count %></td>
-        <td><%= link_to 'View', job %></td>
+  <div class='row'>
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        <h4 class='panel-title'>Open Jobs</h4>
+      </div>
+      <div class='panel-body'>
 
-      </tr>
-    <% end %>
-  </table>
+        <table class="table table-striped">
+          <tr>
+            <th>Company</th>
+            <th>Position</th>
+            <th>Skill list</th>
+            <th>Job type</th>
+            <th>Pay rate</th>
+            <th>Potential Hires</th>
+            <th></th>
+          </tr>
+          <% @open_employer_jobs.each do |job| %>
+            <tr>
+              <td><%= job[:company] %></td>
+              <td><%= job[:position] %></td>
+              <% get_skill_list(job[:skill_list]) %>
+              <td><%= @skill_names_list %></td>
+              <td><%= job[:job_type] %></td>
+              <td>
+                <% if job[:salary_or_hourly] == 'salary' %>
+                 $<%= job[:pay_rate] %>/Month
+                <% else %>
+                  $<%= job[:pay_rate] %>/Hour
+                <% end %>
+              </td>
+              <% get_potential_hires(job[:id]) %>
+              <td><%= @potential_hire_count %></td>
+              <td><%= link_to 'View', "/jobs/#{job[:id]}" %></td>
+
+            </tr>
+          <% end %>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='panel panel-default'>
+      <div class='panel-heading'>
+        <h4 class='panel-title'>Placed Jobs</h4>
+      </div>
+      <div class='panel-body'>
+
+        <table class="table table-striped">
+          <tr>
+            <th>Company</th>
+            <th>Position</th>
+            <th>Skill list</th>
+            <th>Job type</th>
+            <th>Pay rate</th>
+            <th>Employee</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+          <% @filled_employer_jobs.each do |job| %>
+            <tr>
+              <td><%= job[:company] %></td>
+              <td><%= job[:position] %></td>
+              <% get_skill_list(job[:skill_list]) %>
+              <td><%= @skill_names_list %></td>
+              <td><%= job[:job_type] %></td>
+              <td>
+                <% if job[:salary_or_hourly] == 'salary' %>
+                 $<%= job[:pay_rate] %>/Month
+                <% else %>
+                  $<%= job[:pay_rate] %>/Hour
+                <% end %>
+              </td>
+              <td><%= job[:employee] %></td>
+              <td><%= job[:status] %></td>
+              <td><%= link_to 'View', "/jobs/#{job[:id]}" %></td>
+
+            </tr>
+          <% end %>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+
+
   <%= link_to 'New Job', new_job_path %>
 
 <% else %>  <!-- EMPLOYEE -->
