@@ -8,7 +8,7 @@
   <div class='row'>
     <div class='panel panel-default'>
       <div class='panel-heading'>
-        <h4 class='panel-title'>Open Jobs</h4>
+        <h4 class='panel-title'>Open Positions</h4>
       </div>
       <div class='panel-body'>
 
@@ -38,7 +38,7 @@
               </td>
               <% get_potential_hires(job[:id]) %>
               <td><%= @potential_hire_count %></td>
-              <td><%= link_to 'View', "/jobs/#{job[:id]}" %></td>
+              <td><%= link_to 'View', "/jobs/#{job[:id]}", class: 'btn btn-primary btn-xs' %></td>
 
             </tr>
           <% end %>
@@ -51,7 +51,7 @@
   <div class='row'>
     <div class='panel panel-default'>
       <div class='panel-heading'>
-        <h4 class='panel-title'>Placed Jobs</h4>
+        <h4 class='panel-title'>Filled Positions</h4>
       </div>
       <div class='panel-body'>
 
@@ -82,7 +82,7 @@
               </td>
               <td><%= job[:employee] %></td>
               <td><%= job[:status] %></td>
-              <td><%= link_to 'View', "/jobs/#{job[:id]}" %></td>
+              <td><%= link_to 'View', "/jobs/#{job[:id]}", class: 'btn btn-primary btn-xs' %></td>
 
             </tr>
           <% end %>
