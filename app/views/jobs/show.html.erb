@@ -62,13 +62,19 @@
             <tr>
               <th>Name</th>
               <th>Skills</th>
+              <th>Status</th>
               <th></th>
             </tr>
             <% @potential_hires.each do |info| %>
               <tr>
                 <td><%= info[:employee_name] %></td>
                 <td><%= info[:skills] %></td>
-                <td><button class='btn btn-primary btn-xs' id= 'request_employee' value="<%= info[:job_id_user_id] %>">Request</button><td>
+                <td><%= info[:status] %></td>
+                <td>
+                  <% if info[:status] == 'Employed' %>
+                    <button class='btn btn-warning btn-xs' id= 'release_employee' value="<%= info[:job_id_user_id] %>">End Employment</button>
+                  <% end %>
+                  <td>
               </tr>
             <% end %>
           </table>

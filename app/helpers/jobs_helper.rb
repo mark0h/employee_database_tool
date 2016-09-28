@@ -18,21 +18,26 @@ module JobsHelper
   end
 
   def get_potential_hires(job_id)
-    skill_ids = JobSkill.select("skill_id").where(job_id: job_id)
     @potential_hires = []
+    skill_ids = JobSkill.select("skill_id").where(job_id: job_id)
     user_list = UserSkill.where(skill_id: skill_ids).group_by &:user_id
 
     user_list.each do |user_id, user_info|
       employee_skills = []
       employee_name = User.find(user_id).full_name
+      applied_job = AppliedJob.where(user_id: user_id, job_id: job_id).first
       user_info.each do |userskill|
         skill_name = Skill.find(userskill.skill_id).name
         employee_skills << skill_name
       end
 
+      applied_status = "Not Applied"
+      applied_status = applied_job.status unless applied_job.nil?
+
       hash = {
         employee_name: employee_name,
         skills: employee_skills.join(', '),
+        status: applied_status,
         job_id_user_id: "#{job_id}_#{user_id}"
       }
       @potential_hires << hash

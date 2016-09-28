@@ -18,11 +18,6 @@ module JobMethods
       employee_info = User.find(applied_job_info.user_id)
       employee_name = employee_info.full_name
       company_info = Job.find(applied_job_info.job_id)
-      company_name = company_info.company
-      position_name = company_info.position
-      salary_or_hourly = company_info.salary_or_hourly
-      pay_rate = company_info.pay_rate
-      status = applied_job_info.status
 
       job_id_user_id = "#{company_info.id}_#{employee_info.id}"
 
@@ -34,13 +29,14 @@ module JobMethods
       logger.info "LOOK AT THIS!!! applied_job_info.id: #{applied_job_info.id} assign_jobs: matched_skills: #{matched_skills.inspect} user_skills: #{user_skills.inspect} job_skills: #{job_skills.inspect}"
 
       hash = {
-        company: company_name,
-        position: position_name,
+        company: company_info.company,
+        position: company_info.position,
         employee_name: employee_name,
-        salary_or_hourly: salary_or_hourly,
-        pay_rate: pay_rate,
+        salary_or_hourly: company_info.salary_or_hourly,
+        pay_rate: company_info.pay_rate,
         matched_skills: matched_skills,
-        status: status,
+        job_type: company_info.job_type,
+        status: applied_job_info.status,
         job_id_user_id: job_id_user_id
       }
 
@@ -54,7 +50,7 @@ module JobMethods
       end
 
     end
-    
+
   end
 
   def assign_employee
@@ -66,6 +62,12 @@ module JobMethods
 
     user_applied = AppliedJob.where(user_id: user_id, job_id: job_id, status: "Applied").first
     user_applied.update(status: "Employed")
+
+    #This is just so we don't need an add_skill template!
+    respond_to do |format|
+      format.js { render nothing: true }
+    end
+
   end
 
 

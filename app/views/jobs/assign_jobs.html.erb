@@ -17,6 +17,7 @@
               <th>Position</th>
               <th>Applying Employee</th>
               <th>Matched Skills</th>
+              <th>Job Type</th>
               <th>Pay rate</th>
               <th>Submission Text<th>
               <th><th>
@@ -28,6 +29,7 @@
                 <td><%= job_info[:employee_name] %></td>
                 <% get_skill_list(job_info[:matched_skills]) %>
                 <td><%= @skill_names_list %></td>
+                <td><%= job_info[:job_type] %></td>
                 <td>
                   <% if job_info[:salary_or_hourly] == 'salary' %>
                    $<%= job_info[:pay_rate] %>/Month
@@ -62,6 +64,7 @@
               <th>Position</th>
               <th>Assigned Employee</th>
               <th>Matched Skills</th>
+              <th>Job Type</th>
               <th>Pay rate</th>
               <th>Employment Status</th>
             </tr>
@@ -72,6 +75,7 @@
                 <td><%= job_info[:employee_name] %></td>
                 <% get_skill_list(job_info[:matched_skills]) %>
                 <td><%= @skill_names_list %></td>
+                <td><%= job_info[:job_type] %></td>
                 <td>
                   <% if job_info[:salary_or_hourly] == 'salary' %>
                    $<%= job_info[:pay_rate] %>/Month
